@@ -1,0 +1,501 @@
+{% assign selected_product = section.settings.product %}
+
+<section id="plush-bag-winter-{{ section.id }}" class="plush-root">
+  <style>
+    #plush-bag-winter-{{ section.id }} {
+      background: #FFF0C4;
+      color: #000;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      padding: 48px 20px;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      gap: 40px;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-section {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 18px;
+      padding: 32px 28px;
+      box-shadow: 0 18px 44px rgba(62, 7, 3, 0.08);
+    }
+    #plush-bag-winter-{{ section.id }} .plush-title,
+    #plush-bag-winter-{{ section.id }} .plush-subtitle {
+      color: #3E0703;
+      margin: 0 0 18px;
+      letter-spacing: 0.02em;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-title {
+      font-size: 2.6rem;
+      line-height: 1.1;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-subtitle {
+      font-size: 1.8rem;
+      line-height: 1.2;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-copy {
+      font-size: 1.04rem;
+      line-height: 1.5;
+      margin: 0 0 20px;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-btn,
+    #plush-bag-winter-{{ section.id }} .plush-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 26px;
+      border-radius: 999px;
+      background: #8C1007;
+      color: #FFF;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-link {
+      background: transparent;
+      color: #8C1007;
+      border: 2px solid #8C1007;
+      padding: 12px 24px;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-btn:hover,
+    #plush-bag-winter-{{ section.id }} .plush-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(140, 16, 7, 0.35);
+    }
+    #plush-bag-winter-{{ section.id }} .plush-variant-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      list-style: none;
+      padding: 0;
+      margin: 30px 0 0;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-variant-card {
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(62, 7, 3, 0.12);
+      text-align: center;
+      padding-bottom: 18px;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-variant-card img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+    #plush-bag-winter-{{ section.id }} .variant-name {
+      font-weight: 600;
+      color: #3E0703;
+      display: block;
+      margin-top: 12px;
+    }
+    #plush-bag-winter-{{ section.id }} .variant-note {
+      font-size: 0.85rem;
+      display: block;
+      margin-top: 4px;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-product-form {
+      display: grid;
+      gap: 22px;
+    }
+    #plush-bag-winter-{{ section.id }} fieldset {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    #plush-bag-winter-{{ section.id }} legend {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #3E0703;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-variant-option {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(62, 7, 3, 0.12);
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-price {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #3E0703;
+    }
+    #plush-bag-winter-{{ section.id }} .plush-qty {
+      max-width: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    @media (max-width: 768px) {
+      #plush-bag-winter-{{ section.id }} {
+        padding: 36px 16px;
+      }
+      #plush-bag-winter-{{ section.id }} .plush-title {
+        font-size: 2.1rem;
+      }
+    }
+  </style>
+
+  <div class="plush-inner">
+    <div class="plush-section plush-hero">
+      <h1 class="plush-title">{{ section.settings.hero_title }}</h1>
+      <p class="plush-copy">{{ section.settings.hero_copy }}</p>
+      <a class="plush-btn" href="#plush-bag-purchase-{{ section.id }}">{{ section.settings.hero_cta_label }}</a>
+
+      <ul class="plush-variant-grid" role="list">
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+            <li class="plush-variant-card" {{ block.shopify_attributes }}>
+              <figure>
+                <img src="{{ block.settings.placeholder_url | escape }}" alt="{{ block.settings.alt_text | default: block.settings.color_name | escape }}">
+                <figcaption>
+                  <span class="variant-name">{{ block.settings.color_name }}</span>
+                  {% if block.settings.shade_note != blank %}
+                    <span class="variant-note">{{ block.settings.shade_note }}</span>
+                  {% endif %}
+                </figcaption>
+              </figure>
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="plush-section plush-product" id="plush-bag-purchase-{{ section.id }}">
+      <h2 class="plush-subtitle">{{ section.settings.form_heading }}</h2>
+      <p class="plush-copy">{{ section.settings.form_copy }}</p>
+
+      {% if selected_product != blank %}
+        {% assign first_variant = selected_product.selected_or_first_available_variant %}
+        <div class="plush-product-form">
+          <div class="plush-price" data-plush-price>{{ first_variant.price | money }}</div>
+
+          {% form 'product', selected_product, id: "plush-form-#{section.id}", class: 'plush-product-form', novalidate: 'novalidate', data-plush-form: true %}
+            <fieldset>
+              <legend>{{ section.settings.variant_legend }}</legend>
+              {% for variant in selected_product.variants %}
+                <label class="plush-variant-option" for="variant-{{ section.id }}-{{ forloop.index0 }}">
+                  <input
+                    type="radio"
+                    id="variant-{{ section.id }}-{{ forloop.index0 }}"
+                    name="id"
+                    value="{{ variant.id }}"
+                    {% if variant.id == first_variant.id %}checked{% endif %}
+                    data-variant-radio>
+                  <span>{{ variant.title }}</span>
+                  {% if variant.available == false %}
+                    <span aria-live="polite">{{ 'products.product.sold_out' | t }}</span>
+                  {% endif %}
+                </label>
+              {% endfor %}
+            </fieldset>
+
+            <div class="plush-qty">
+              <label for="qty-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+              <input id="qty-{{ section.id }}" type="number" name="quantity" min="1" value="1">
+            </div>
+
+            <button type="submit" class="plush-btn">{{ section.settings.add_to_bag_label }}</button>
+            {{ form | payment_button }}
+          {% endform %}
+        </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            var sectionRoot = document.getElementById('plush-bag-winter-{{ section.id }}');
+            if (!sectionRoot) return;
+            var form = sectionRoot.querySelector('[data-plush-form]');
+            if (!form) return;
+            var priceTarget = sectionRoot.querySelector('[data-plush-price]');
+            var radios = form.querySelectorAll('[data-variant-radio]');
+            var variants = {{ selected_product.variants | json }};
+            function formatMoney(cents) {
+              if (window.Shopify && Shopify.formatMoney) {
+                return Shopify.formatMoney(cents, {{ shop.money_format | json }});
+              }
+              return (cents / 100).toFixed(2);
+            }
+            radios.forEach(function(radio) {
+              radio.addEventListener('change', function() {
+                var variantId = Number(radio.value);
+                var variant = variants.find(function(v) { return v.id === variantId; });
+                if (variant && priceTarget) {
+                  priceTarget.textContent = formatMoney(variant.price);
+                }
+              });
+            });
+          });
+        </script>
+      {% else %}
+        <p class="plush-copy plush-note">Assign the Plush Bag product in the section settings to activate checkout.</p>
+      {% endif %}
+    </div>
+
+    <div class="plush-section" id="plush-comfort-{{ section.id }}">
+      <h2 class="plush-subtitle">{{ section.settings.section_two_heading }}</h2>
+      <p class="plush-copy">{{ section.settings.section_two_copy }}</p>
+      <a class="plush-link" href="#plush-bag-purchase-{{ section.id }}">{{ section.settings.section_two_cta }}</a>
+    </div>
+
+    <div class="plush-section" id="plush-quality-{{ section.id }}">
+      <h2 class="plush-subtitle">{{ section.settings.section_three_heading }}</h2>
+      <p class="plush-copy">{{ section.settings.section_three_copy }}</p>
+      <a class="plush-link" href="#plush-bag-purchase-{{ section.id }}">{{ section.settings.section_three_cta }}</a>
+    </div>
+
+    <div class="plush-section" id="plush-style-{{ section.id }}">
+      <h2 class="plush-subtitle">{{ section.settings.section_four_heading }}</h2>
+      <p class="plush-copy">{{ section.settings.section_four_copy }}</p>
+      <a class="plush-link" href="#plush-bag-purchase-{{ section.id }}">{{ section.settings.section_four_cta }}</a>
+    </div>
+
+    <div class="plush-section" id="plush-delivery-{{ section.id }}">
+      <h2 class="plush-subtitle">{{ section.settings.section_five_heading }}</h2>
+      <p class="plush-copy">{{ section.settings.section_five_copy }}</p>
+      <a class="plush-link" href="#plush-bag-purchase-{{ section.id }}">{{ section.settings.section_five_cta }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Plush Bag Winter Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Plush Bag product"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "Plush Bags Winter Plush Bag"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_copy",
+      "label": "Hero copy (≤200 characters)",
+      "default": "Faux fur warmth meets winter streets; tap Buy Plush Bag Now to wrap every outing in softness."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_label",
+      "label": "Hero CTA label",
+      "default": "Buy Plush Bag Now"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Purchase heading",
+      "default": "Ready for Snowy Adventures"
+    },
+    {
+      "type": "textarea",
+      "id": "form_copy",
+      "label": "Purchase copy (≤200 characters)",
+      "default": "Pick a shade and checkout instantly; tap Secure Plush Checkout to claim your winter staple."
+    },
+    {
+      "type": "text",
+      "id": "variant_legend",
+      "label": "Variant legend",
+      "default": "Choose Your Winter Shade"
+    },
+    {
+      "type": "text",
+      "id": "add_to_bag_label",
+      "label": "Add to bag label",
+      "default": "Add Plush Bag to Cart"
+    },
+    {
+      "type": "text",
+      "id": "section_two_heading",
+      "label": "Section 2 heading",
+      "default": "Comfort in Motion"
+    },
+    {
+      "type": "textarea",
+      "id": "section_two_copy",
+      "label": "Section 2 copy (≤200 characters)",
+      "default": "Cushioned lining protects tech and treats; click Feel Plush Comfort to carry winter ease."
+    },
+    {
+      "type": "text",
+      "id": "section_two_cta",
+      "label": "Section 2 CTA label",
+      "default": "Feel Plush Comfort"
+    },
+    {
+      "type": "text",
+      "id": "section_three_heading",
+      "label": "Section 3 heading",
+      "default": "Quality You Can Trust"
+    },
+    {
+      "type": "textarea",
+      "id": "section_three_copy",
+      "label": "Section 3 copy (≤200 characters)",
+      "default": "Dense stitching keeps faux fur lush season after season; tap Choose Plush Quality to invest in enduring charm."
+    },
+    {
+      "type": "text",
+      "id": "section_three_cta",
+      "label": "Section 3 CTA label",
+      "default": "Choose Plush Quality"
+    },
+    {
+      "type": "text",
+      "id": "section_four_heading",
+      "label": "Section 4 heading",
+      "default": "Snow-Ready Styling"
+    },
+    {
+      "type": "textarea",
+      "id": "section_four_copy",
+      "label": "Section 4 copy (≤200 characters)",
+      "default": "Eight snowy shades switch from parkas to parties; hit Style Plush Shades to match every frosted plan."
+    },
+    {
+      "type": "text",
+      "id": "section_four_cta",
+      "label": "Section 4 CTA label",
+      "default": "Style Plush Shades"
+    },
+    {
+      "type": "text",
+      "id": "section_five_heading",
+      "label": "Section 5 heading",
+      "default": "Shipping Wrapped in Cheer"
+    },
+    {
+      "type": "textarea",
+      "id": "section_five_copy",
+      "label": "Section 5 copy (≤200 characters)",
+      "default": "Free winter shipping keeps gifting easy; tap Secure Plush Delivery to get cozy moments en route fast."
+    },
+    {
+      "type": "text",
+      "id": "section_five_cta",
+      "label": "Section 5 CTA label",
+      "default": "Secure Plush Delivery"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "variant",
+      "name": "Variant",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "color_name",
+          "label": "Variant name"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt text"
+        },
+        {
+          "type": "url",
+          "id": "placeholder_url",
+          "label": "Placeholder image URL"
+        },
+        {
+          "type": "text",
+          "id": "shade_note",
+          "label": "Shade note"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Plush Bag Winter Showcase",
+      "category": "Product",
+      "blocks": [
+        {
+          "type": "variant",
+          "settings": {
+            "color_name": "Midnight Black",
+            "alt_text": "Plush Bag in Midnight Black faux fur.",
+            "placeholder_url": "https://via.placeholder.com/600x800/101010/FFFFFF?text=Midnight+Black",
+            "shade_note": "Deep noir for moonlit walks."
+          }
+        },
+        {
+          "type": "variant",
+          "settings": {
+            "color_name": "Vanilla Cream",
+            "alt_text": "Plush Bag in Vanilla Cream faux fur.",
+            "placeholder_url": "https://via.placeholder.com/600x800/F7E7C4/3E0703?text=Vanilla+Cream",
+            "shade_note": "Buttery neutral for cozy neutrals."
+          }
+        },
+        {
+          "type": "variant",
+          "settings": {
+            "color_name": "Cocoa Truffle",
+            "alt_text": "Plush Bag in Cocoa Truffle faux fur.",
+            "placeholder_url": "https://via.placeholder.com/600x800/5B3A29/FFFFFF?text=Cocoa+Truffle",
+            "shade_note": "Rich brown inspired by firesides."
+          }
+        },
+        {
+          "type": "variant",
+          "settings": {
+            "color_name": "Snowy Speckle",
+            "alt_text": "Plush Bag in Snowy Speckle faux fur.",
+            "placeholder_url": "https://via.placeholder.com/600x800/F5F0E6/3E0703?text=Snowy+Speckle",
+            "shade_note": "Playful spots for alpine flair."
+          }
+        },
+        {
+          "type": "variant",
+          "settings": {
+            "color_name": "Honey Mink",
+            "alt_text": "Plush Bag in Honey Mink faux fur.",
+            "placeholder_url": "https://via.placeholder.com/600x800/D8C2A3/3E0703?text=Honey+Mink",
+            "shade_note": "Golden beige brightens gray days."
+          }
+        },
+        {
+          "type": "variant",
+          "settings": {
+            "color_name": "Glacier Gray",
+            "alt_text": "Plush Bag in Glacier Gray faux fur.",
+            "placeholder_url": "https://via.placeholder.com/600x800/9FA4B3/3E0703?text=Glacier+Gray",
+            "shade_note": "Cool slate pairs with puffer coats."
+          }
+        },
+        {
+          "type": "variant",
+          "settings": {
+            "color_name": "Polar White",
+            "alt_text": "Plush Bag in Polar White faux fur.",
+            "placeholder_url": "https://via.placeholder.com/600x800/FDFDFD/3E0703?text=Polar+White",
+            "shade_note": "Snow-bright staple for winter whites."
+          }
+        },
+        {
+          "type": "variant",
+          "settings": {
+            "color_name": "Charcoal Frost",
+            "alt_text": "Plush Bag in Charcoal Frost faux fur.",
+            "placeholder_url": "https://via.placeholder.com/600x800/4A4F59/FFFFFF?text=Charcoal+Frost",
+            "shade_note": "Smoky neutral for city nights."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
